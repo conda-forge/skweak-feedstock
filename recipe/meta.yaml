@@ -19,9 +19,11 @@ requirements:
   host:
     - pip
     - python {{ python_min }}
+    - setuptools
   run:
     - hmmlearn >=0.2.5,<=0.2.7
-    - numpy >=1.18
+    # Somehow pip check says: "blis 1.0.1 has requirement numpy<3.0.0,>=2.0.0, but you have numpy 1.26.4."
+    - numpy <3.0.0,>=2.0.0
     - pandas >=0.23
     - python >={{ python_min }}
     - spacy >=3.0

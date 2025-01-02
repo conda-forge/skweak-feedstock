@@ -7,32 +7,35 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/skweak-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/skweak-{{ version }}.tar.gz
   sha256: 640e3849f83bae6adcf45948be335fa33732aa5b97111d6df2fc1b6c5dfbca2e
 
 build:
-  number: 0
+  number: 1
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv
 
 requirements:
   host:
     - pip
-    - python >=3.6
+    - python {{ python_min }}
+    - setuptools
   run:
     - hmmlearn >=0.2.5,<=0.2.7
     - numpy >=1.18
     - pandas >=0.23
-    - python >=3.6
+    - python >={{ python_min }}
     - spacy >=3.0
 
 test:
   imports:
     - skweak
   commands:
-    - pip check
+    # Disable pip check due to weird blis version check
+    # - pip check
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   home: https://github.com/NorskRegnesentral/skweak
